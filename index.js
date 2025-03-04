@@ -9,8 +9,8 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-      origin: "http://localhost:3000", // Explicitly allow frontend
-      credentials: true, // Allow cookies & authentication headers
+      origin: "https://prodiosbackend-1.onrender.com/", 
+      credentials: true, 
   })
 );
 app.get("/", (req, res) => {
