@@ -8,7 +8,7 @@ const app = express();
 
 const corsOptions = {
   origin: [
-    "https://newfrontend-7mzy4k346-hemantfw13s-projects.vercel.app",
+    "https://newfrontend-six.vercel.app/",
     "http://localhost:3000", 
     "https://localhost:3000"
   ],
