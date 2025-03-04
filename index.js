@@ -1,18 +1,30 @@
 const express = require("express");
-
+const cors = require("cors");
 const { connection } = require("./configs/db");
 const { userRouter } = require("./routes/user.route");
-const cors = require("cors");
 const { taskRouter } = require("./routes/task.route");
 
 const app = express();
+
+const corsOptions = {
+  origin: [
+    "https://newfrontend-7mzy4k346-hemantfw13s-projects.vercel.app",
+    "http://localhost:3000", 
+    "https://localhost:3000"
+  ],
+  credentials: true, 
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
+  allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin"],
+};
+
+app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions));
+
+// app.use(cors())
+
 app.use(express.json());
-app.use(
-  cors({
-      origin: "https://prodiosbackend-1.onrender.com/", 
-      credentials: true, 
-  })
-);
+
 app.get("/", (req, res) => {
   res.send("HOME PAGE");
 });
@@ -20,15 +32,12 @@ app.get("/", (req, res) => {
 app.use("/user", userRouter);
 app.use("/task", taskRouter);
 
-
-
 app.listen(1010, async () => {
   try {
     await connection;
-    console.log("connected to db");
+    console.log("Connected to DB");
   } catch (e) {
     console.log(e);
   }
-
-  console.log("listening 1010");
+  console.log("Listening on port 1010");
 });
